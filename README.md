@@ -3,7 +3,7 @@
 <img src="https://user-images.githubusercontent.com/56271907/236621951-c02b980e-06fc-41fe-9943-9eade9208070.png"  width="300" height="300">
 
 
-kindler allows you to run a smtp agent via github actions, to monitor your repo, and send your nonpirated books, and linux iso files to your kindle automatically. 
+kindler allows you to run a smtp agent via github actions to monitor your repo, and send your nonpirated books, and linux iso files to your kindle automatically. 
 
 ## jumpstart
 
