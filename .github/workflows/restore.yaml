@@ -1,0 +1,51 @@
+name: Restore in prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "CONFIRM" to proceed with restoring the database.'
+        required: true
+        default: 'Type here'
+
+jobs:
+  check-confirmation:
+    runs-on: ubuntu-latest
+    outputs:
+      confirmed: ${{ steps.confirm-check.outputs.confirmed }}
+    steps:
+      - name: Check Confirmation
+        id: confirm-check
+        run: |
+          if [[ "${{ github.event.inputs.confirm }}" == "CONFIRM" ]]; then
+            echo "confirmed=true" >> $GITHUB_ENV
+          else
+            echo "Restoration aborted: incorrect confirmation input."
+            exit 1
+          fi
+
+  restore-db:
+    needs: check-confirmation
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-confirmation.outputs.confirmed == 'true' }}
+    environment:
+      name: prod  
+      url: ${{ steps.restore.outputs.db-url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment
+        run: |
+   
+
+      - name: Restore Database
+        id: restore
+        run: |
+
+          echo "::set-output name=db-url::http://example.com/db-status" 
+          echo "restoration completed."
+
+      - name: Notify completion
+        run: echo "restoration to production has been successfully completed."
+
