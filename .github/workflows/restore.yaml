@@ -9,23 +9,7 @@ on:
         default: 'Type here'
 
 jobs:
-  check-confirmation:
-    runs-on: ubuntu-latest
-    outputs:
-      confirmed: ${{ steps.confirm-check.outputs.confirmed }}
-    steps:
-      - name: Check Confirmation
-        id: confirm-check
-        run: |
-          if [[ "${{ github.event.inputs.confirm }}" == "CONFIRM" ]]; then
-            echo "confirmed=true" >> $GITHUB_ENV
-          else
-            echo "Restoration aborted: incorrect confirmation input."
-            exit 1
-          fi
-
   restore-db:
-    needs: check-confirmation
     runs-on: ubuntu-latest
     if: ${{ needs.check-confirmation.outputs.confirmed == 'true' }}
     environment:
